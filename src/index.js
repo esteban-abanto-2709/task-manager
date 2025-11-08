@@ -5,6 +5,10 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import taskRoutes from './routes/task.routes.js';
 
+// Importación de Swagger
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './config/swagger.js';
+
 dotenv.config();
 
 const app = express();
@@ -41,6 +45,9 @@ app.get('/', (req, res) => {
         }
     });
 });
+
+// Documentación Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Rutas de tareas
 app.use('/api/tasks', taskRoutes);
